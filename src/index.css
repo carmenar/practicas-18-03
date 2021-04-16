@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.contenedor{
+  display: flex;
+}
+.contenedorLista{
+  display: flex;
+  margin: 20px;
+}
+.serie{
+  color: #85A737
+  }
+.card{
+  border-radius: 19px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow:  5px 5px 0px #fcfcfc,
+               -5px -5px 0px #ffffff;
+  margin: 20px;
+}
+
+
+
