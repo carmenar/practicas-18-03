@@ -62,15 +62,15 @@ class Lista extends Component {
     //console.log(this.state.lista)
   };
 
-  handleEditar = (e) => { 
+  handleEditar = (e, item) => { 
     //const newFirst = this.lista.name.first.filter((item, i) => e.target )
-   
-
+    
     this.setState({
-      first: e.target.value,
-      last: e.target.value,
+      first: item.name.first,
+      last: item.name.last,
+      idEdit: item.login.uuid,
     })
-   console.log(e.target)
+//   console.log(e, item)
   };
 
   handleGuardar = () => {
@@ -90,23 +90,25 @@ class Lista extends Component {
           <ExpandLessIcon />
         </Button>
         
-          {}
+          {this.state.idEdit !== '' &&
           <div>
         <TextField
           id="editar-first"
           label="Editar First Name"
+          value={this.state.first}
           onChange={this.handleEditar} 
         />
         <br/>
         <TextField
           id="editar-last"
           label="Editar Last Name"
+          value={this.state.last}
           onChange={this.handleEditar}
         />
         <Button onClick={this.handleGuardar} color='secondary'>
         <SaveIcon/>
       </Button>
-      </div>
+      </div>}
         
         <Card>
           {this.state.lista
@@ -132,7 +134,7 @@ class Lista extends Component {
                   >
                     <DeleteOutlineIcon />
                   </IconButton>
-                  <IconButton onClick={this.handleEditar} aria-label="create">
+                  <IconButton id={item.login.uuid} onClick={(e) => this.handleEditar(e, item)} aria-label="create">
                     <CreateIcon />
                   </IconButton>
                 </Typography>
