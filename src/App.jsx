@@ -72,7 +72,7 @@ class Lista extends Component {
     })
 //   console.log(e, item)
   };
-
+//hola
   handleGuardar = () => {
 
   }
