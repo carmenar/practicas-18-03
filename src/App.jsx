@@ -62,19 +62,49 @@ class Lista extends Component {
     //console.log(this.state.lista)
   };
 
-  handleEditar = (e, item) => { 
+  handleBotonEditar = (e, item) => {
     //const newFirst = this.lista.name.first.filter((item, i) => e.target )
-    
+
     this.setState({
       first: item.name.first,
       last: item.name.last,
       idEdit: item.login.uuid,
     })
-//   console.log(e, item)
+    //   console.log(e, item)
   };
-//hola
-  handleGuardar = () => {
 
+  handleTextField = (e) => {
+    if ("editar-first" === e.target.id) {
+      this.setState({
+        first: e.target.value,
+      })
+    }
+    else {
+      this.setState({
+        last: e.target.value,
+      })
+    }
+  //  console.log(this.state.first, this.state.last)
+  }
+
+  //handleFirst = (e) => { this.setState({ first: e.target.value})
+  //console.log(e.target.value)}
+  //}handleLast = (e) => { this.setState({ last: e.target.value })
+  //console.log(e.target.value) }
+
+  handleGuardar = (e) => {
+    const igualarId = this.state.lista.map((item, index) => {
+      if (item.login.uuid === this.state.idEdit) {
+        return {
+          ...item, name: { first: this.state.first, last: this.state.last }
+        }
+      }
+      return item;
+    }
+    )
+    this.setState({
+     lista: igualarId
+    })
   }
 
   render() {
@@ -89,27 +119,27 @@ class Lista extends Component {
         <Button onClick={this.handleBotonArriba}>
           <ExpandLessIcon />
         </Button>
-        
-          {this.state.idEdit !== '' &&
+
+        {this.state.idEdit !== '' &&
           <div>
-        <TextField
-          id="editar-first"
-          label="Editar First Name"
-          value={this.state.first}
-          onChange={this.handleEditar} 
-        />
-        <br/>
-        <TextField
-          id="editar-last"
-          label="Editar Last Name"
-          value={this.state.last}
-          onChange={this.handleEditar}
-        />
-        <Button onClick={this.handleGuardar} color='secondary'>
-        <SaveIcon/>
-      </Button>
-      </div>}
-        
+            <TextField
+              id="editar-first"
+              label="Editar First Name"
+              value={this.state.first}
+              onChange={this.handleTextField}
+            />
+            <br />
+            <TextField
+              id="editar-last"
+              label="Editar Last Name"
+              value={this.state.last}
+              onChange={this.handleTextField}
+            />
+            <Button onClick={this.handleGuardar} color='secondary'>
+              <SaveIcon />
+            </Button>
+          </div>}
+
         <Card>
           {this.state.lista
             .filter(
@@ -134,7 +164,7 @@ class Lista extends Component {
                   >
                     <DeleteOutlineIcon />
                   </IconButton>
-                  <IconButton id={item.login.uuid} onClick={(e) => this.handleEditar(e, item)} aria-label="create">
+                  <IconButton id={item.login.uuid} onClick={(e) => this.handleBotonEditar(e, item)} aria-label="create">
                     <CreateIcon />
                   </IconButton>
                 </Typography>
